@@ -8,6 +8,7 @@ import { Gallery } from "@/components/eclipse/sections/Gallery";
 import { About } from "@/components/eclipse/sections/About";
 import { Experience } from "@/components/eclipse/sections/Experience";
 import { Leadership } from "@/components/eclipse/sections/Leadership";
+import { Contact } from "@/components/eclipse/sections/Contact";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -17,14 +18,17 @@ function Index() {
   return (
     <main className="relative min-h-screen text-foreground">
       <SmoothScroll />
-      <CustomCursor />
       <Loader />
+      <CustomCursor />
       <DotNav />
+
       <Hero />
       <Gallery />
       <About />
       <Experience />
       <Leadership />
+      <Contact />
     </main>
   );
 }
+
