@@ -1,0 +1,205 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Eclipse Portfolio — Ink on Paper design system.
+ * Warm off-white paper background, ink-black foreground, amber accent.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-paper-dark: var(--paper-dark);
+  --color-ink-faint: var(--ink-faint);
+  --color-pencil: var(--pencil);
+  --color-sky: var(--sky);
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* paper #F5F0EB */
+  --background: oklch(0.953 0.012 70);
+  --foreground: oklch(0.18 0 0);
+  /* paper-dark #E8E0D8 */
+  --paper-dark: oklch(0.905 0.014 70);
+  --card: oklch(0.953 0.012 70);
+  --card-foreground: oklch(0.18 0 0);
+  --popover: oklch(0.953 0.012 70);
+  --popover-foreground: oklch(0.18 0 0);
+
+  /* amber #D4A574 */
+  --primary: oklch(0.755 0.085 67);
+  --primary-foreground: oklch(0.18 0 0);
+
+  --secondary: oklch(0.905 0.014 70);
+  --secondary-foreground: oklch(0.18 0 0);
+  --muted: oklch(0.905 0.014 70);
+  /* ink-light #4A4A4A */
+  --muted-foreground: oklch(0.42 0 0);
+  --accent: oklch(0.755 0.085 67);
+  --accent-foreground: oklch(0.18 0 0);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  /* pencil #C8C0B8 */
+  --border: oklch(0.815 0.015 70);
+  --pencil: oklch(0.815 0.015 70);
+  --input: oklch(0.815 0.015 70);
+  --ring: oklch(0.755 0.085 67);
+  /* ink-faint */
+  --ink-faint: oklch(0.66 0 0);
+  /* sky pale */
+  --sky: oklch(0.92 0.018 240);
+}
+
+.dark {
+  --background: oklch(0.18 0 0);
+  --foreground: oklch(0.953 0.012 70);
+  --card: oklch(0.22 0 0);
+  --card-foreground: oklch(0.953 0.012 70);
+  --primary: oklch(0.755 0.085 67);
+  --primary-foreground: oklch(0.18 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 15% 0%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 55%),
+      radial-gradient(ellipse at 85% 30%, color-mix(in oklab, var(--sky) 70%, transparent), transparent 55%),
+      radial-gradient(ellipse at 50% 100%, var(--paper-dark), transparent 60%),
+      linear-gradient(180deg, var(--background) 0%, var(--paper-dark) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+/* Paper grain texture overlay */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Floating bob animation for skill clouds */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float-slow { animation: float 6s ease-in-out infinite; }
+.float-med  { animation: float 4.5s ease-in-out infinite; }
+.float-fast { animation: float 3.2s ease-in-out infinite; }
+
+/* Wave undulation */
+@keyframes wave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-30px); }
+}
+.wave-anim { animation: wave 8s ease-in-out infinite; }
+
+/* Custom cursor */
+.custom-cursor-dot,
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--foreground);
+}
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--foreground);
+  transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
+}
+.custom-cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  border-color: var(--primary);
+}
+@media (hover: none) {
+  .custom-cursor-dot, .custom-cursor-ring { display: none; }
+  html, body, * { cursor: auto !important; }
+}
+@media (hover: hover) and (pointer: fine) {
+  html { cursor: none; }
+  a, button, [data-cursor="hover"] { cursor: none; }
+}
+
+/* Sketch wobble border */
+.sketch-border {
+  border: 1.5px solid var(--pencil);
+  border-radius: 6px;
+  box-shadow: 1px 2px 0 var(--pencil);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
